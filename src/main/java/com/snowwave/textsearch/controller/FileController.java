@@ -1,5 +1,4 @@
 package com.snowwave.textsearch.controller;
-
 import org.elasticsearch.action.get.GetResponse;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.client.transport.TransportClient;
@@ -10,10 +9,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.Date;
@@ -27,11 +23,6 @@ public class FileController {
     @Autowired
     private TransportClient transportClient;
 
-
-    @GetMapping("/index")
-    public String index(){
-        return "index";
-    }
 
     @GetMapping("/get/book/novel")
     @ResponseBody

@@ -1,5 +1,6 @@
 package com.snowwave.textsearch.util;
 
+
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
