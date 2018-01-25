@@ -1,4 +1,4 @@
-package com.snowwave.textsearch;
+package com.snowwave.textsearch.common;
 
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.settings.Settings;
