@@ -40,10 +40,10 @@ public class FileService {
 
         String fileName = file.getOriginalFilename();
         //拷贝到本地
-        Files.copy(file.getInputStream(), new File(TextUtil.IMAGE_DIR + fileName).toPath(),
+        Files.copy(file.getInputStream(), new File(TextUtil.FILE_DIR + fileName).toPath(),
                 StandardCopyOption.REPLACE_EXISTING);
 
-        return TextUtil.TOUTIAO_DOMAIN + "file?name=" + fileName;
+        return TextUtil.TEXT_DOMAIN + "file?name=" + fileName;
     }
 
 

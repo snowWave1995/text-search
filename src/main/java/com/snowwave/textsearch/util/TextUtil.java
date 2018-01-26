@@ -9,8 +9,8 @@ import java.util.Map;
  */
 public class TextUtil {
 
-    public static String TOUTIAO_DOMAIN = "http://127.0.0.1:8080/";
-    public static String IMAGE_DIR = "D:/upload/";
+    public static String TEXT_DOMAIN = "http://127.0.0.1:8080/";
+    public static String FILE_DIR = "D:/upload/";
     public static String[] TEXT_FILE_EXTD = new String[] {"txt", "doc", "pdf", "xml"};
 
 
