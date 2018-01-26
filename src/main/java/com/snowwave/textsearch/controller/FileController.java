@@ -1,4 +1,7 @@
 package com.snowwave.textsearch.controller;
+import com.snowwave.textsearch.service.FileService;
+import com.snowwave.textsearch.util.TextUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.action.get.GetResponse;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.client.transport.TransportClient;
@@ -10,7 +13,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.xml.soap.Text;
 import java.io.IOException;
 import java.util.Date;
 
@@ -18,10 +23,36 @@ import java.util.Date;
  * Created by zhangfuqiang on 2018/1/25.
  */
 @Controller
+@Slf4j
 public class FileController {
 
     @Autowired
     private TransportClient transportClient;
+
+    @Autowired
+    private FileService fileService;
+
+    /**
+     * 上传文件
+     * @param file
+     * @return
+     */
+    @RequestMapping(path = {"/uploadFile/"}, method = {RequestMethod.POST})
+    @ResponseBody
+    public String uploadImage(@RequestParam("file") MultipartFile file) {
+        try {
+              String fileUrl = fileService.saveFile(file);
+
+            if (fileUrl == null) {
+                return TextUtil.getJSONString(1, "上传文件失败");
+            }
+            return TextUtil.getJSONString(0, fileUrl);
+        } catch (Exception e) {
+            log.error("上传文件失败" + e.getMessage());
+            return TextUtil.getJSONString(1, "上传失败");
+        }
+    }
+
 
 
     @GetMapping("/get/book/novel")
