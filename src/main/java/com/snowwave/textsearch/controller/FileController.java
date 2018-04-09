@@ -12,6 +12,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -41,7 +42,7 @@ public class FileController {
     @ResponseBody
     public String uploadImage(@RequestParam("file") MultipartFile file) {
         try {
-              String fileUrl = fileService.saveFile(file);
+              String fileUrl = fileService.saveFileToLocalAndES(file);
 
             if (fileUrl == null) {
                 return TextUtil.getJSONString(1, "上传文件失败");
@@ -89,7 +90,7 @@ public class FileController {
                     .field("word_count",wordCount)
                     .field("publish_date",publishDate.getTime())
                     .endObject();
-            IndexResponse result = this.transportClient.prepareIndex("book","novel")
+            IndexResponse result = transportClient.prepareIndex("book","novel")
                     .setSource(content)
                     .get();
             return new ResponseEntity(result.getId(),HttpStatus.OK);
@@ -100,4 +101,7 @@ public class FileController {
 
 
     }
+
+
+
 }
