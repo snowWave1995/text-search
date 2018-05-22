@@ -26,7 +26,7 @@ public class ESConfig {
         //这里可以new多个node 添加到client中
 
         Settings settings = Settings.builder()
-                .put("cluster.name","elasticsearch")
+                .put("cluster.name","text-search")
                 .build();
 
         TransportClient client = new PreBuiltTransportClient(settings);

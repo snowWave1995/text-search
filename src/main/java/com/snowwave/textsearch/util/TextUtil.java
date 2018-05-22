@@ -2,6 +2,7 @@ package com.snowwave.textsearch.util;
 
 import com.alibaba.fastjson.JSONObject;
 
+import java.io.*;
 import java.util.Map;
 
 /**
@@ -27,6 +28,35 @@ public class TextUtil {
         }
         return false;
     }
+
+    /**
+     * 将文件内容转换成字符串
+     * @param fileName
+     * @return
+     */
+    public static String readToString(String fileName) {
+        String encoding = "gbk";
+        File file = new File(fileName);
+        Long filelength = file.length();
+        byte[] filecontent = new byte[filelength.intValue()];
+        try {
+            FileInputStream in = new FileInputStream(file);
+            in.read(filecontent);
+            in.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            return new String(filecontent, encoding);
+        } catch (UnsupportedEncodingException e) {
+            System.err.println("The OS does not support " + encoding);
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public static String getJSONString(int code) {
         JSONObject json = new JSONObject();
         json.put("code", code);
@@ -48,5 +78,6 @@ public class TextUtil {
         }
         return json.toJSONString();
     }
+
 
 }

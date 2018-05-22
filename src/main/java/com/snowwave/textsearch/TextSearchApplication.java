@@ -1,13 +1,23 @@
 package com.snowwave.textsearch;
 
+
+import org.junit.platform.commons.logging.Logger;
+import org.junit.platform.commons.logging.LoggerFactory;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.SpringBootVersion;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @SpringBootApplication
 @Controller
+@EnableScheduling
+@EnableAsync
 public class TextSearchApplication {
+
+
 
 	@RequestMapping(path={"/","/index"})
 	public String index(){
@@ -15,6 +25,8 @@ public class TextSearchApplication {
 	}
 
 	public static void main(String[] args) {
+		//PO转DTO
+
 		SpringApplication.run(TextSearchApplication.class, args);
 	}
 }
