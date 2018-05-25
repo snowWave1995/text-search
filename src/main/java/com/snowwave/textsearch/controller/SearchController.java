@@ -21,6 +21,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -48,7 +50,6 @@ public class SearchController {
     @ResponseBody
     public RetDTO get(@RequestParam(name = "id" , defaultValue = "") String id,
                       @RequestParam(name = "type" , defaultValue = "") String type){
-        RetDTO retDTO = null;
         if (id.isEmpty()){
             return new RetDTO(404,"id为空");
         }
@@ -58,8 +59,7 @@ public class SearchController {
         if (!response.isExists()) {
             return new RetDTO(404,"未查到");
         }
-        retDTO = RetDTO.getReturnJson(response.getSource());
-        return retDTO;
+        return RetDTO.getReturnJson(response.getSource());
 
     }
 
@@ -74,11 +74,13 @@ public class SearchController {
      * @throws Exception
      */
     @PostMapping("/add/text")
+    @ResponseBody
     public RetDTO add(@RequestParam(name = "title") String title,
                               @RequestParam(name = "author") String author,
                               @RequestParam(name = "type") String type,
                               @RequestParam("file") MultipartFile file) throws Exception{
         RetDTO retDTO = null;
+        HashMap<String,String> res = new HashMap();
         String string = fileService.getStringFromFile(file);
         Text text = new Text(string);
         try {
@@ -94,12 +96,12 @@ public class SearchController {
             IndexResponse result = transportClient.prepareIndex("text",type)
                     .setSource(content)
                     .get();
-            retDTO = RetDTO.getReturnJson(result.getId());
+           res.put("result",result.getId());
         } catch (IOException e){
             e.printStackTrace();
-            retDTO = RetDTO.getReturnJson("增加文档失败");
+            res.put("result","增加文档失败");
         }
-        return retDTO;
+        return RetDTO.getReturnJson(res);
     }
 
 
@@ -109,6 +111,7 @@ public class SearchController {
      * @return
      */
     @GetMapping("/searchAll")
+    @ResponseBody
     public RetDTO searchAll(@RequestParam(name = "keyword") String keyword) {
         return RetDTO.getReturnJson(searchService.searchAll(keyword));
     }
@@ -120,8 +123,11 @@ public class SearchController {
      * @return
      */
     @DeleteMapping("/delete/text")
-    public RetDTO delete(@RequestParam(name = "type") String type,@RequestParam(name = "id") String id) {
-           DeleteResponse response =  transportClient.prepareDelete("text",type,id).get();
-        return RetDTO.getReturnJson(response.getResult().toString());
+    @ResponseBody
+    public RetDTO delete(@RequestParam(name = "type") String type, @RequestParam(name = "id") String id) {
+        DeleteResponse response =  transportClient.prepareDelete("text",type,id).get();
+        Map<String, Object> result = new HashMap<>();
+        result.put("result",response.getResult().toString());
+        return RetDTO.getReturnJson(result);
     }
 }

@@ -5,7 +5,7 @@ import org.springframework.http.HttpStatus;
 /**
  * Created by zhangfuqiang on 2018/5/25.
  */
-public class RetDTO<T> {
+public class RetDTO<T> extends BaseModel{
     private int code;
     private String msg;
     private T data;
@@ -24,6 +24,7 @@ public class RetDTO<T> {
     public static <E> RetDTO<E> getReturnJson(E data){
         return new RetDTO<E>(HttpStatus.OK.value(), HttpStatus.OK.name(), data);
     }
+
 
     public static <E> RetDTO<E> getReturnJson(String msg, E data){
         return new RetDTO<E>(HttpStatus.OK.value(), msg, data);
