@@ -3,6 +3,7 @@ import com.snowwave.textsearch.model.RetDTO;
 import com.snowwave.textsearch.service.FileService;
 import com.snowwave.textsearch.service.SearchService;
 import lombok.extern.slf4j.Slf4j;
+import org.elasticsearch.action.delete.DeleteResponse;
 import org.elasticsearch.action.get.GetResponse;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.client.transport.TransportClient;
@@ -27,7 +28,7 @@ import java.util.Date;
  */
 @Controller
 @Slf4j
-public class FileController {
+public class SearchController {
 
     @Autowired
     private TransportClient transportClient;
@@ -63,11 +64,21 @@ public class FileController {
     }
 
 
+    /**
+     * 上传文件到ES
+     * @param title
+     * @param author
+     * @param type
+     * @param file
+     * @return
+     * @throws Exception
+     */
     @PostMapping("/add/text")
     public RetDTO add(@RequestParam(name = "title") String title,
                               @RequestParam(name = "author") String author,
                               @RequestParam(name = "type") String type,
                               @RequestParam("file") MultipartFile file) throws Exception{
+        RetDTO retDTO = null;
         String string = fileService.getStringFromFile(file);
         Text text = new Text(string);
         try {
@@ -83,18 +94,34 @@ public class FileController {
             IndexResponse result = transportClient.prepareIndex("text",type)
                     .setSource(content)
                     .get();
-            return new RetDTO(200,result.getId());
+            retDTO = RetDTO.getReturnJson(result.getId());
         } catch (IOException e){
             e.printStackTrace();
-            return new RetDTO(500,"增加文档失败");
+            retDTO = RetDTO.getReturnJson("增加文档失败");
         }
-
+        return retDTO;
     }
 
 
+    /**
+     * 全文搜索
+     * @param keyword
+     * @return
+     */
     @GetMapping("/searchAll")
     public RetDTO searchAll(@RequestParam(name = "keyword") String keyword) {
         return RetDTO.getReturnJson(searchService.searchAll(keyword));
     }
 
+    /**
+     * 删除
+     * @param type
+     * @param id
+     * @return
+     */
+    @DeleteMapping("/delete/text")
+    public RetDTO delete(@RequestParam(name = "type") String type,@RequestParam(name = "id") String id) {
+           DeleteResponse response =  transportClient.prepareDelete("text",type,id).get();
+        return RetDTO.getReturnJson(response.getResult().toString());
+    }
 }
