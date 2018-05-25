@@ -1,18 +1,22 @@
 package com.snowwave.textsearch.util;
 
-import com.alibaba.fastjson.JSONObject;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.text.PDFTextStripper;
+import org.apache.poi.hslf.extractor.PowerPointExtractor;
+import org.apache.poi.hwpf.extractor.WordExtractor;
+import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
 
 import java.io.*;
-import java.util.Map;
 
 /**
  * Created by zhangfuqiang on 2018/1/26.
+ * 支持多种格式
  */
 public class TextUtil {
 
-    public static String TEXT_DOMAIN = "http://127.0.0.1:8080/";
     public static String FILE_DIR = "D:/upload/";
-    public static String[] TEXT_FILE_EXTD = new String[] {"txt", "doc", "pdf", "xml"};
+    public static String[] TEXT_FILE_EXTD = new String[] {"txt", "doc", "docx","pdf","ppt"};
 
 
     /**
@@ -30,11 +34,11 @@ public class TextUtil {
     }
 
     /**
-     * 将文件内容转换成字符串
+     * 用来读取txt文件的方法
      * @param fileName
      * @return
      */
-    public static String readToString(String fileName) {
+    public static String getTextFromTxt(String fileName) {
         String encoding = "gbk";
         File file = new File(fileName);
         Long filelength = file.length();
@@ -56,27 +60,66 @@ public class TextUtil {
             return null;
         }
     }
+    
+    /**
+     * 用来读取doc文件的方法
+     * @param filePath
+     * @return
+     * @throws Exception
+     */
+    public static String getTextFromDoc(String filePath) throws Exception{
 
-    public static String getJSONString(int code) {
-        JSONObject json = new JSONObject();
-        json.put("code", code);
-        return json.toJSONString();
+        FileInputStream fis = new FileInputStream(new File(filePath));
+        WordExtractor extractor = new WordExtractor(fis);
+
+        return extractor.getText();
+
     }
 
-    public static String getJSONString(int code, String msg) {
-        JSONObject json = new JSONObject();
-        json.put("code", code);
-        json.put("msg", msg);
-        return json.toJSONString();
+    /**
+     * 用来读取docx文件
+     * @param filePath
+     * @return
+     * @throws IOException
+     * @throws Exception
+     */
+    @SuppressWarnings("resource")
+    public static String getTextFromDocx(String filePath) throws IOException {
+        FileInputStream in = new FileInputStream(filePath);
+        XWPFDocument doc = new XWPFDocument(in);
+        XWPFWordExtractor extractor = new XWPFWordExtractor(doc);
+        String text = extractor.getText();
+        in.close();
+        return text;
     }
 
-    public static String getJSONString(int code, Map<String, Object> map) {
-        JSONObject json = new JSONObject();
-        json.put("code", code);
-        for (Map.Entry<String, Object> entry : map.entrySet()) {
-            json.put(entry.getKey(), entry.getValue());
-        }
-        return json.toJSONString();
+    /**
+     * 用来读取pdf文件
+     * @param filePath
+     * @return
+     * @throws IOException
+     */
+    public static String getTextFromPDF(String filePath) throws IOException{
+        File input = new File(filePath);
+        PDDocument pd = PDDocument.load(input);
+        PDFTextStripper stripper = new PDFTextStripper();
+        String res = stripper.getText(pd);
+        pd.close();
+        return res;
+    }
+
+    /**
+     * 用来读取ppt文件
+     * @param filePath
+     * @return
+     * @throws IOException
+     */
+    public static String getTextFromPPT( String filePath) throws IOException{
+        FileInputStream in = new FileInputStream(filePath);
+        PowerPointExtractor extractor = new PowerPointExtractor(in);
+        String content = extractor.getText();
+        extractor.close();
+        return content;
     }
 
 

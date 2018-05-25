@@ -1,7 +1,6 @@
 package com.snowwave.textsearch.service;
 
 import com.snowwave.textsearch.util.TextUtil;
-import org.elasticsearch.common.text.Text;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,12 +18,12 @@ public class FileService {
 
 
     /**
-     * 保存文件，成功就返回文件本地地址
+     * 从多种格式文档中读取内容到字符串中
      * @param file
      * @return
      * @throws IOException
      */
-    public String saveFileToLocalAndES(MultipartFile file) throws IOException {
+    public String getStringFromFile(MultipartFile file) throws Exception {
 
         //判断文件是否合法，通过文件后缀
         int dotPos = file.getOriginalFilename().lastIndexOf(".");
@@ -38,17 +37,24 @@ public class FileService {
             return null;
         }
 
-
         String fileName = file.getOriginalFilename();
-        Text text = new Text(TextUtil.readToString(fileName));
-        System.out.println(text);
-        //拷贝到本地
         Files.copy(file.getInputStream(), new File(TextUtil.FILE_DIR + fileName).toPath(),
                 StandardCopyOption.REPLACE_EXISTING);
-
-
-        //传到ES
-        return TextUtil.TEXT_DOMAIN + "file?name=" + fileName;
+        String string = "";
+         if (fileExt.equals("txt")) {
+             string = TextUtil.getTextFromTxt(TextUtil.FILE_DIR + fileName);
+         }else if (fileExt.equals("doc")){
+             string = TextUtil.getTextFromDoc(TextUtil.FILE_DIR + fileName);
+         }else if (fileExt.equals("docx")) {
+             string = TextUtil.getTextFromDocx(TextUtil.FILE_DIR + fileName);
+         } else if (fileExt.equals("pdf")) {
+             string = TextUtil.getTextFromPDF(TextUtil.FILE_DIR + fileName);
+         } else if (file.equals("ppt")) {
+             string = TextUtil.getTextFromPPT(TextUtil.FILE_DIR + fileName);
+         }else {
+             string = "当前不支持此类型";
+         }
+        return string;
     }
 
 }

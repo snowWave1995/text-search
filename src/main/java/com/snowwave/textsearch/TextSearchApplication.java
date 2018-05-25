@@ -1,10 +1,7 @@
 package com.snowwave.textsearch;
 
 
-import org.junit.platform.commons.logging.Logger;
-import org.junit.platform.commons.logging.LoggerFactory;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.SpringBootVersion;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
