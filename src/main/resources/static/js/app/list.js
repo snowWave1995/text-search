@@ -93,19 +93,6 @@ define(function (require, exports, module) {
     var values = content.split(key);
     $list.html(values.join('<span style="color:red;">' + key + '</span>'));  
   }
-
-  // 搜索关键字高亮
-  // markKeyWord = function(text, key) {
-  //   var i, len = key.length, reg;
-  //   for (i = 0; i < len; i++) {
-  //     reg = new RegExp(key[i], 'g');
-  //     if (reg.test(text)) {
-  //       text = text.replace(reg, '<span style="color:red;">$&</span>');
-  //     }
-  //   }
-  //   return text;
-  // }
-
   $list = $('#list'),
   $result = $('#result'),
   $title = $('#title'),

@@ -11,7 +11,6 @@ function submitForm() {
   formData.append('author', author);
   formData.append('type', type);
 
-  // var _url = '/add/text?title=' + title.split('.')[0] + '&author=' + author + '&type=' + type; 
   $.ajax({
       url: '/add/text',
       data: formData,
