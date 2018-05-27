@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>基于Elasticsearch的文本检索系统</title>
+  <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/search.css">
+</head>
+<body scroll="no">
+  <!-- 文件搜索 -->
+  <div id="search">
+    <div class="search-bar">
+      <form>
+        <input type="text" id="search-msg" placeholder="请输入您要搜索的内容...">
+        <button type="button" id="search-btn" onclick="searchAll()"></button>
+      </form>
+    </div>
+    <button id="add-btn" class="btn btn-primary btn-sm" data-toggle="modal"  data-target="#addModal">添加文件</button>
+    <ul id="list">
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
+  </div>
+
+  <!-- 模态框 -->
+  <div>
+    <form method="post" class="form-horizontal" name="file" role="form" id="form_data" style="margin: 20px;">
+      <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title" id="myModalLabel">文件信息</h4>
+            </div>
+            <div class="modal-body">
+                <!-- <form class="form-horizontal" id="form_upload" role="form"> -->
+                  <div class="form-group">
+                    <label for="filename" class="col-sm-3 control-label">文件名</label>
+                    <div class="col-sm-9 upload-div">
+                      <input type="text" class="form-control title" id="title" name="title">
+                      <a href="javascript:void(0);" class="brower-btn">浏览</a>
+                      <input type="file" name="file" id="upload-file" class="upload-file" accept=".doc,.docx,.txt,.pdf,.ppt" onchange="getFile()" />
+                    </div>
+                  </div>
+                <!-- </form> -->
+                           
+                <div class="form-group">
+                  <label for="lastname" class="col-sm-3 control-label">作  者</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control" name="author" id="author">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="lastname" class="col-sm-3 control-label">类  型</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control" name="type" id="type">
+                  </div>
+                </div>
+
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+              <button type="button" class="btn btn-primary" id="submitBtn" onclick="submitForm()">提交</button>
+              <div id="tip"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <script src="/js/lib/sea.js"></script>
+  <script src="/js/lib/jquery.js"></script>
+  <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+  <script src="/js/app/search.js"></script>
+  <script src="/js/app/submitForm.js"></script>
+</body>
+</html>

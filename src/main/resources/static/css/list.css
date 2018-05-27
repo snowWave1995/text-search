@@ -1,0 +1,91 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: "Microsoft YaHei","宋体","Segoe UI", "Lucida Grande", Helvetica, Arial,sans-serif, FreeSans, Arimo;
+}
+a {
+  color: #505086;
+  cursor: pointer;
+  background-color: transparent;
+  text-decoration: none;
+}
+p {
+  display: block;
+}
+.list-wrapper {
+  width: 650px;
+  margin: 50px auto 20px;
+}
+.list-wrapper .result {
+  font-size: 13px;
+  top: 0;
+  color: #b4b4b4;
+}
+.list-wrapper .list {
+  padding-top: 8px;
+  clear: both;
+  list-style: none;
+}
+.list li {
+  display: list-item;
+  width: 100%;
+  line-height: 20px;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+  word-wrap: break-word;
+}
+.list li:last-of-type {
+  border: none;
+}
+.list .title {
+  float: none;
+  display: inherit;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.list .title:visited {
+  color: #551a8b;
+}
+.list .textContent {
+  font-size: 13px;
+  line-height: 24px;
+  display: -webkit-box !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-all;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+.list .meta span {
+  font-size: 13px;
+}
+.list-wrapper .search-result-highlight {
+  font-style: normal;
+  color: #ea6f5a;
+}
+.info_404 {
+  display: none;
+  width: 600px;
+  margin: 120px auto;
+  line-height: 1.8;
+}
+.info_404 .image {
+  float: left;
+  width: 160px;
+  height: 151px;
+  margin-right: 40px;
+  background: url(http://www.17sucai.com/preview/586222/2016-07-23/404/404/error.png) 0 0 no-repeat;
+}
+.info_404 .title {
+  color: #666;
+  font-size: 18px;
+  padding: 30px;
+}
+.info_404 .oper a{
+  color: #06c;
+  font-size: 14px;
+}

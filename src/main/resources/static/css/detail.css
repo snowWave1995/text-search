@@ -1,0 +1,74 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-size: 14px;
+  line-height: 2;
+  background-color: #f8fafc;
+  color: #555;
+  font-family: "Microsoft YaHei","宋体","Segoe UI", "Lucida Grande", Helvetica, Arial,sans-serif, FreeSans, Arimo;
+}
+h1 {
+  margin: 20px 0 10px;
+  line-height: 1.5;
+}
+p {
+  text-align: justify;
+  text-indent: 2em;
+  margin-top: 10px;
+}
+.post-expand {
+  width:800px;
+  margin: 50px auto;
+  padding: 40px;
+  border: 1px solid #e5e5e5;
+  border-radius: 5px;
+  background-color: #fff;
+  box-shadow: 0 0 10px 2px #e5e5e5;
+}
+.post-expand .post:first-child {
+  margin-top: 0;
+}
+.post-title, .post-meta {
+  text-align: center;
+}
+.post-expand .post-title {
+  position: relative;
+  font-size: 24px;
+  font-weight: 400;
+  word-break: break-word;
+}
+.post-expand .post-meta {
+  color: #999;
+  font-size: 12px;
+  margin-bottom: 25px;
+}
+.post-body {
+  padding: 15px 30px;
+  background-color: #f7f7f7;
+  border-radius: 5px;
+}
+.info_404 {
+  display: none;
+  width: 600px;
+  margin: 120px auto;
+  line-height: 1.8;
+}
+.info_404 .image {
+  float: left;
+  width: 160px;
+  height: 151px;
+  margin-right: 40px;
+  background: url(http://www.17sucai.com/preview/586222/2016-07-23/404/404/error.png) 0 0 no-repeat;
+}
+.info_404 .title {
+  color: #666;
+  font-size: 18px;
+  padding: 30px;
+}
+.info_404 .oper a{
+  color: #06c;
+  font-size: 14px;
+}

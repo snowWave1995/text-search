@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>查询结果</title>
+  <link rel="stylesheet" href="css/list.css">
+  <link rel="stylesheet" href="css/pageView.css">
+</head>
+<body scroll="no">
+<div class="list-wrapper">
+  <!-- 搜索结果统计区 -->
+  <div id="result" class="result"></div>
+
+  <!-- 搜索列表 -->
+  <ul id="list" class="list">
+  </ul>
+
+  <!-- 页码区 -->
+  <div class="page-wrapper">
+    <ul id="page-view" class="page_view"></ul>
+  </div>
+</div>
+<div class="info_404">
+</div>
+
+<script src="/js/lib/sea.js"></script>
+<script>
+    seajs.use('./js/app/list.js');
+</script>
+</body>
+</html

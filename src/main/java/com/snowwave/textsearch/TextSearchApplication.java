@@ -18,7 +18,16 @@ public class TextSearchApplication {
 
 	@RequestMapping(path={"/","/index"})
 	public String index(){
-		return "index";
+		return "search";
+	}
+
+	@RequestMapping(path={"list"})
+	public String list(){
+		return "list";
+	}
+	@RequestMapping(path={"detail"})
+	public String detail(){
+		return "detail";
 	}
 
 	public static void main(String[] args) {

@@ -1,0 +1,157 @@
+
+* {
+  margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+body {
+  font-size: 14px;
+	overflow: hidden;
+	font-family: "Microsoft YaHei","宋体","Segoe UI", "Lucida Grande", Helvetica, Arial,sans-serif, FreeSans, Arimo;
+}
+li {
+  list-style: none;
+  width: 100%;
+  padding: 3px 13px;
+}
+li:hover {
+  background-color: rgba(49, 28, 36, 0.09);
+  cursor: default;
+}
+ul li:first-child{
+  margin-top: 0;
+}
+ul{
+  border: 2px solid slategrey;
+  border-top: 0px;
+	display: none;
+	width: 500px;
+} 
+#search,
+#upload {
+	width: 600px;
+	margin: 0 auto;
+	position: relative;
+}
+.search-bar {
+  margin-top: 300px;
+}
+.search-bar form{
+	position: relative;
+	width: 500px;
+}
+input, 
+button {
+	border: none;
+	outline: none;
+}
+.search-bar input {
+	width: 100%;
+	height: 42px;
+	padding-left: 13px;
+	border: 2px solid #e5e5e5;
+  box-shadow: 0 0 10px 2px #e5e5e5;
+}
+.search-bar button {
+	height: 42px;
+	width: 42px;
+	top: 0;
+	right: 0;
+	cursor: pointer;
+	position: absolute;
+}
+.search-bar input, 
+.search-bar button {
+	background: transparent;
+}
+.search-bar button:before {
+	content: "\f002";
+	font-family: FontAwesome;
+	font-size: 16px;
+	color: slategrey;
+}
+.search-bar input:focus {
+  border-color: slategrey;
+}
+#add-btn,
+.form-group a.brower-btn {  
+	border-radius: 6px;  
+	outline: none;  
+	border: none;  
+	text-decoration: none;
+	background-color: slategrey;  
+	color: #fff;  
+	cursor: pointer;  
+}  
+.form-group a.brower-btn {
+	position: absolute;
+	right: 54px;
+	display: inline-block;
+	width: 54px;
+	height: 34px;
+	padding: 6px 12px;
+	text-align: center;
+	border-radius: 4px;
+}
+#add-btn {
+	width: 80px; 
+	height: 34px;
+	position: absolute;
+	top: 0;
+	right: 0;
+	margin: 4px 0;
+}
+.form-group .upload-div {
+	position: relative;
+}
+.form-group .select-btn {
+	left: 0;
+}
+.form-group .upload-file {
+	position: absolute;
+	width: 54px;
+	height: 34px;
+	right: 54px;
+	top: 0;
+	opacity: 0;
+	filter: alpha(opacity=0);
+	cursor: pointer;
+	overflow: hidden;
+	border: 1px solid transparent;
+}
+.form-group .title {
+	float: left;
+	padding: 6px 12px;
+}
+.modal-dialog {
+	width: 500px;
+	margin: 180px auto;
+}
+.modal-body {
+	padding: 20px 0;
+	margin-bottom: -15px
+}
+.modal-footer {
+	margin-top: 0;
+	padding: 20px 40px;
+}
+.modal-title {
+	text-align: center;
+}
+.form-control {
+	width: 75%;
+}
+.col-sm-9 {
+	padding-right: 25px;
+	padding-left: 0;
+}
+#tip {
+	display: inline-block;
+	position: absolute;
+	left: 44%;
+	height: 30px;
+	line-height: 30px;
+}
+.tiptext {
+	font-family: "Microsoft YaHei";
+}

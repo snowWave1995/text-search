@@ -1,5 +1,6 @@
 package com.snowwave.textsearch.controller;
 import com.snowwave.textsearch.model.RetDTO;
+import com.snowwave.textsearch.model.SearchDTO;
 import com.snowwave.textsearch.service.FileService;
 import com.snowwave.textsearch.service.SearchService;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
+import java.net.URLDecoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -49,7 +50,7 @@ public class SearchController {
     @GetMapping("/get/text")
     @ResponseBody
     public RetDTO get(@RequestParam(name = "id" , defaultValue = "") String id,
-                      @RequestParam(name = "type" , defaultValue = "") String type){
+                      @RequestParam(name = "type" , defaultValue = "") String type) throws Exception{
         if (id.isEmpty()){
             return new RetDTO(404,"id为空");
         }
@@ -75,13 +76,18 @@ public class SearchController {
      */
     @PostMapping("/add/text")
     @ResponseBody
-    public RetDTO add(@RequestParam(name = "title") String title,
-                              @RequestParam(name = "author") String author,
-                              @RequestParam(name = "type") String type,
-                              @RequestParam("file") MultipartFile file) throws Exception{
-        RetDTO retDTO = null;
+    public RetDTO add(@RequestParam(name = "title" ) String title,
+                      @RequestParam(name = "author") String author,
+                      @RequestParam(name = "type") String type,
+                      @RequestParam("file") MultipartFile file) {
         HashMap<String,String> res = new HashMap();
-        String string = fileService.getStringFromFile(file);
+        String string = null;
+        title = title.substring(0,title.indexOf("."));
+        try {
+            string = fileService.getStringFromFile(file);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         Text text = new Text(string);
         try {
 
@@ -96,14 +102,15 @@ public class SearchController {
             IndexResponse result = transportClient.prepareIndex("text",type)
                     .setSource(content)
                     .get();
-           res.put("result",result.getId());
-        } catch (IOException e){
-            e.printStackTrace();
-            res.put("result","增加文档失败");
+            res.put("result",result.getId());
+        } catch (Exception e){
+            return new RetDTO(500,"上传失败");
         }
-        return RetDTO.getReturnJson(res);
-    }
 
+        return RetDTO.getReturnJson(res);
+
+
+    }
 
     /**
      * 全文搜索
@@ -112,8 +119,13 @@ public class SearchController {
      */
     @GetMapping("/searchAll")
     @ResponseBody
-    public RetDTO searchAll(@RequestParam(name = "keyword") String keyword) {
-        return RetDTO.getReturnJson(searchService.searchAll(keyword));
+    public RetDTO searchAll(@RequestParam(name = "keyword") String keyword) throws Exception{
+        String key = URLDecoder.decode(URLDecoder.decode(keyword, "UTF-8"),"UTF-8");
+        SearchDTO searchDTO = searchService.searchAll(key);
+        if (searchDTO.getTotal() == 0){
+            return new RetDTO(404,"没有找到该内容");
+        }
+        return RetDTO.getReturnJson(searchDTO);
     }
 
     /**
