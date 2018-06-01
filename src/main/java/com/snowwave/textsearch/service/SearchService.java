@@ -35,6 +35,7 @@ public class SearchService {
 
         QueryStringQueryBuilder qs = new QueryStringQueryBuilder(keyword);
         // 最匹配的在前
+        qs.minimumShouldMatch("100%");
         qs.useDisMax(true);
         search.setQuery(qs);
         SearchResponse response = search.get();

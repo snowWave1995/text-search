@@ -49,7 +49,7 @@ public class FileService {
              string = TextUtil.getTextFromDocx(TextUtil.FILE_DIR + fileName);
          } else if (fileExt.equals("pdf")) {
              string = TextUtil.getTextFromPDF(TextUtil.FILE_DIR + fileName);
-         } else if (file.equals("ppt")) {
+         } else if (fileExt.equals("ppt")) {
              string = TextUtil.getTextFromPPT(TextUtil.FILE_DIR + fileName);
          }else {
              string = "当前不支持此类型";

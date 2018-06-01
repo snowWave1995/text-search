@@ -76,40 +76,22 @@ public class SearchController {
      */
     @PostMapping("/add/text")
     @ResponseBody
-    public RetDTO add(@RequestParam(name = "title" ) String title,
-                      @RequestParam(name = "author") String author,
-                      @RequestParam(name = "type") String type,
-                      @RequestParam("file") MultipartFile file) {
+    public RetDTO add(@RequestParam(name = "title" ) String title, @RequestParam(name = "author") String author,
+                      @RequestParam(name = "type") String type, @RequestParam("file") MultipartFile file) throws Exception {
         HashMap<String,String> res = new HashMap();
         String string = null;
-        title = title.substring(0,title.indexOf("."));
-        try {
-            string = fileService.getStringFromFile(file);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        string = fileService.getStringFromFile(file);
         Text text = new Text(string);
         try {
-
-            XContentBuilder content =  XContentFactory.jsonBuilder()
-                    .startObject()
-                    .field("title",title)
-                    .field("author",author)
-                    .field("type",type)
-                    .field("update_time",new SimpleDateFormat("yyyy-MM-dd").format(new Date()))
-                    .field("TextContent",text)
-                    .endObject();
-            IndexResponse result = transportClient.prepareIndex("text",type)
-                    .setSource(content)
-                    .get();
+            XContentBuilder content =  XContentFactory.jsonBuilder().startObject().field("title",title)
+                    .field("author",author).field("type",type).field("update_time",new SimpleDateFormat("yyyy-MM-dd").format(new Date()))
+                    .field("TextContent",text).endObject();
+            IndexResponse result = transportClient.prepareIndex("text",type).setSource(content).get();
             res.put("result",result.getId());
         } catch (Exception e){
             return new RetDTO(500,"上传失败");
         }
-
         return RetDTO.getReturnJson(res);
-
-
     }
 
     /**
