@@ -31,13 +31,16 @@ list.onclick = function(e) {
 }
 
 // 获取上传文件的文件名写入filename文本框中
-function getFile() {
-    if(uploadFile.files[0] == undefined){
-        alert('未上传文件！');
-    }else{
-        title.value = uploadFile.files[0].name;
-    }
+function getFile(){
+    $("#upload-file").unbind().change(function(){
+        if(uploadFile.files[0] == undefined){
+            alert('未上传文件！');
+        }else{
+            title.value = uploadFile.files[0].name;
+        }
+    })
 }
+
 
 function fn(data) {
     var lis = document.querySelectorAll('li');

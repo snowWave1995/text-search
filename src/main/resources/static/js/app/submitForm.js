@@ -35,13 +35,15 @@ function submitForm() {
         console.log("res.statusText");
       },
       complete: function() {
-        $("#submitBtn").removeAttr("disabled");
-        $('#title').val('');
-        $('#author').val('');
-        $('#type').val('');
-        setTimeout(function(){
-          $("#tip").hide();
-        },2000);
+          $("#submitBtn").removeAttr("disabled");
+          $('#title').val('');
+          $('#author').val('');
+          $('#type').val('');
+
+          var timer = window.setTimeout(function(){
+              $('#tip').html('');
+              window.clearTimeout(timer);
+          },2000);
       }
   });
 }
