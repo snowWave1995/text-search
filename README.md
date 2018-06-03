@@ -1,19 +1,20 @@
 # 基于ElasticSearch的海量文本检索系统
 
+<br />
 
-
-> 关于我，欢迎关注
+> 关于我，欢迎关注<br />
 > 博客：[雪浪snowWave](http://www.cnblogs.com/team42/)
 
+<br />
+## 项目介绍
 
+基于ElasticSearch的海量文本检索系统，目前支持txt, doc, docx, pdf, ppt格式文本上传及全文查询，本项目作为本人的毕业设计
+<br />
 
-### 项目介绍
+感谢同事[@Luckyhui](https://github.com/wenhuiyang-luck)的前端支持，在百忙之中抽出时间与我联调。
+<br />
 
-基于ElasticSearch的海量文本检索系统，目前支持txt, doc, docx, pdf, ppt格式文本上传及全文查询。
-
-
-
-### 功能实现
+## 功能实现
 
 - #### 首页
 
@@ -36,10 +37,8 @@
 
   - 文本内容分段渲染
 
-
-
-
-### 项目截图
+<br />
+## 项目截图
 
 - #### 首页-搜索
 
@@ -61,8 +60,8 @@
 ![详情页](img/detail.png)
 
 
-
-### 参与贡献
+<br />
+## 参与贡献
 
 1. *Fork*本项目
 2. 新建 *Search_xxx* 分支
